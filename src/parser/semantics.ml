@@ -254,45 +254,23 @@ let section_heading
     in
     parsed_a_title, element
 
-  | `All, 1 ->
-    if parsed_a_title then
-      warning status (Parse_error.only_one_title_allowed location);
-
-    (* The `Title level is lowered to `Section if:
-       - this is not a page, or
-       - it is a page but a title was already parsed. *)
-    let level =
-      if is_page && not parsed_a_title then
-        `Title
-      else begin
-        Parse_error.bad_section_level (string_of_int level) location
-        |> warning status;
-        `Section
-      end
-    in
-    let element = `Heading (level, label, content) in
-    let element = Location.at location element in
-    true, element
-
   | _ ->
-    let level =
-      match level with
-      | 2 -> `Section
-      | 3 -> `Subsection
-      | 4 -> `Subsubsection
+    let level = match level with
+      | 1 when is_page && not parsed_a_title -> `Title
+      | 1 -> `Section
+      | 2 -> `Subsection
+      | 3 -> `Subsubsection
+      | 4 -> `Subsubsubsection
+      | 5 -> `Subsubsubsubsection
       | _ ->
         Parse_error.bad_section_level (string_of_int level) location
         |> warning status;
-        if level < 2 then
-          `Section
-        else
-          `Subsubsection
+        `Subsubsubsubsection
     in
     let element = `Heading (level, label, content) in
     let element = Location.at location element in
+    let parsed_a_title = level = `Title || parsed_a_title in
     parsed_a_title, element
-
-
 
 let top_level_block_elements
     : status -> (Ast.block_element with_location) list ->

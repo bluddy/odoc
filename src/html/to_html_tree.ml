@@ -782,6 +782,8 @@ struct
       | `Section -> 2
       | `Subsection -> 3
       | `Subsubsection -> 4
+      | `Subsubsubsection -> 5
+      | `Subsubsubsubsection -> 6
     in
     fun other_level ~than ->
       level_to_int other_level > level_to_int than

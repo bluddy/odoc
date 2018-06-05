@@ -352,6 +352,8 @@ let block_element
       | `Section -> Html.h2 ~a content
       | `Subsection -> Html.h3 ~a content
       | `Subsubsection -> Html.h4 ~a content
+      | `Subsubsubsection -> Html.h5 ~a content
+      | `Subsubsubsubsection -> Html.h6 ~a content
     in
     Some element
 

@@ -339,6 +339,8 @@ struct
         | `Section -> "2"
         | `Subsection -> "3"
         | `Subsubsection -> "4"
+        | `Subsubsubsection -> "5"
+        | `Subsubsubsubsection -> "6"
       in
       List [Atom level; label; List (List.map (at non_link_inline_element) es)]
     | `Tag t -> tag t
