@@ -7,7 +7,7 @@ let bad_markup : string -> Location.span -> Error.t =
   Error.format "'%s': bad markup"
 
 let bad_section_level : string -> Location.span -> Error.t =
-  Error.format "'%s': bad section level (1-5 allowed)"
+  Error.format "'%s': bad section level (1-6 allowed)"
 
 let cannot_be_empty : what:string -> Location.span -> Error.t = fun ~what ->
   Error.format "%s cannot be empty" what

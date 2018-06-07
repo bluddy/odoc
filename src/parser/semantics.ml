@@ -255,13 +255,14 @@ let section_heading
     parsed_a_title, element
 
   | _ ->
+    let level = if is_page then level else level + 1 in
     let level = match level with
-      | 1 when is_page && not parsed_a_title -> `Title
-      | 1 -> `Section
-      | 2 -> `Subsection
-      | 3 -> `Subsubsection
-      | 4 -> `Subsubsubsection
-      | 5 -> `Subsubsubsubsection
+      | 1 -> `Title
+      | 2 -> `Section
+      | 3 -> `Subsection
+      | 4 -> `Subsubsection
+      | 5 -> `Subsubsubsection
+      | 6 -> `Subsubsubsubsection
       | _ ->
         Parse_error.bad_section_level (string_of_int level) location
         |> warning status;
